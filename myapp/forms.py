@@ -11,5 +11,5 @@ class EntryForm(forms.ModelForm):
     class Meta:
         model = Entry
         fields = ['text'] # esse é campo que aparece pra preencher
-        labels = {'text': 'i'}
+        labels = {'text': ''}
         widgets = {'text': forms.Textarea(attrs={'cols':80})} # espaço para adicionar as anotações
