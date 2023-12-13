@@ -11,6 +11,9 @@
             <li>
                <p> {{ entry.date_added }}</p>
                <p> {{ entry.text }}</p>
+               <p>
+                <a href="{% url 'edit_entry' entry.id %}">Editar anotação</a>
+               </p>
             </li>
         {% empty %}
             <li>Lista vazia</li>

@@ -10,6 +10,6 @@ class TopicForm(forms.ModelForm):
 class EntryForm(forms.ModelForm):
     class Meta:
         model = Entry
-        fields = ['text']
-        labels = {'text': ''}
-        widgets = {'text': forms.Textarea(attrs={'cols':80})}
+        fields = ['text'] # esse é campo que aparece pra preencher
+        labels = {'text': 'i'}
+        widgets = {'text': forms.Textarea(attrs={'cols':80})} # espaço para adicionar as anotações

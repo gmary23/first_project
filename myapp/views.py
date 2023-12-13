@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Topic
+from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -48,3 +48,17 @@ def new_entry(request, topic_id):
         
   
     return render(request, 'myapp/new_entry.html', context={'topic':topic, 'form':form})
+
+def edit_entry(request, entry_id):
+    entry = Entry.objects.get(id=entry_id) # tá buscando na class Entry em models.py o id 
+    topic = entry.topic # topic do model topic que está ligado por uma chave estrangeira
+
+    if request.method != 'POST': 
+        form = EntryForm(instance=entry) # busca o formulário já preenchido - a instance faz isso - a variável entry traz isso na linha 53
+
+    else:
+        form = EntryForm(instance=entry, data=request.POST)
+        if form.is_valid():
+            form.save
+            return HttpResponseRedirect(reverse('topic', args=[topic.id]))
+    return render(request, 'myapp/edit_entry.html', context={'entry': entry, 'topic': topic, 'form': form})
