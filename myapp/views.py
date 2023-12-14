@@ -3,23 +3,26 @@ from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required # esse módulo dar permissão ao usuário apenas o que foi ele é dono
 
 
 def index(request,):
     return render(request, 'myapp/index.html')
 
+@login_required
 def topics(request):
     topics = Topic.objects.order_by('date_added')
     context = {'topics': topics}
     return render(request, 'myapp/topics.html', context)
 
+@login_required
 def topic(request, topic_id):
     topic = Topic.objects.get(id=topic_id)
     entries = topic.entry_set.order_by('id')
     context = {'topic': topic, 'entries': entries}
     return render(request, 'myapp/topic.html', context)
 
-
+@login_required
 def new_topic(request):
     if request.method != 'POST':
         form = TopicForm() # Nenhum dado submetido cria um formulário em branco
@@ -31,6 +34,7 @@ def new_topic(request):
 
     return render(request, 'myapp/new_topic.html', context={'form': form})
 
+@login_required
 def new_entry(request, topic_id):
     """Insere uma nova entrada para o assunto do topico"""
     topic = Topic.objects.get(id=topic_id)
@@ -49,6 +53,7 @@ def new_entry(request, topic_id):
   
     return render(request, 'myapp/new_entry.html', context={'topic':topic, 'form':form})
 
+@login_required
 def edit_entry(request, entry_id):
     entry = Entry.objects.get(id=entry_id) # tá buscando na class Entry em models.py o id 
     topic = entry.topic # topic do model topic que está ligado por uma chave estrangeira
