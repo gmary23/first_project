@@ -1,14 +1,43 @@
-<p>
-<a href="{% url 'index' %}">Primeiro programa</a><br>
-<a href="{% url 'topics' %}">Tópicos</a>
-{% if user.is_authenticated %}
-    Olá, {{ user.username }}
-    <a href="{% url 'logout' %}">Sair</a>
-{% else %}
-    <a href="{% url 'register' %}">Registrar</a>
-    <a href="{% url 'login' %}">Entrar</a>
-    
-{% endif %}
-</p>
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title>Meu projeto</title>
 
-    {% block content  %}{% endblock content %}
+        {% bootsrap_css %} 
+        {% bootsrap_javascript %} 
+    </head>
+    <body>
+        <nav>
+          
+            <div>
+                <div>
+                    <button>
+
+                    </button>
+                    <a href="{% url 'index' %}">Primeiro programa</a><br>
+                
+            </div>
+
+                <div>
+
+                    <ul>
+                        <a href="{% url 'topics' %}">Tópicos</a>
+                    </ul>
+
+                    <ul>
+                        {% if user.is_authenticated %}
+                            Olá, {{ user.username }}
+                            <li><a href="{% url 'logout' %}">Sair</a></li>
+                        {% else %}
+                            <li><a href="{% url 'register' %}">Registrar</a></li>
+                            <li><a href="{% url 'login' %}">Entrar</a></li>
+                            
+                        {% endif %}
+                    </ul>
+
+
+                        {% block content  %}{% endblock content %}
+                <div>
+            </div>
+        </nav>
+    </body>
