@@ -1,43 +1,51 @@
+{% load bootstrap3 %}
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
-        <title>Meu projeto</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1"> <!--faz adapatação da aplicação para diferentes telas-->
+        <meta name="description" content="Aplicação para anotações." /><!--palavras que descreve para aparecer no google-->
+        <meta name="keywords" content="anotações, anotação"> <!--palavras chaves para localizar o site-->
+        <meta name="author" content="Jefferson Lobato" />
+       
+        <title>My project</title>
 
-        {% bootsrap_css %} 
-        {% bootsrap_javascript %} 
+        {% bootstrap_css %} 
+        {% bootstrap_javascript %} 
     </head>
     <body>
-        <nav>
-          
-            <div>
-                <div>
-                    <button>
-
+        <nav class="navbar navbar-default navbar-static-top"> <!--menu -o static top mantem o menu no topo-->
+            <div class="container">
+                <div class="navbar-header">
+                    <button 
+                        type="button" 
+                        class="navbar-toggle collapsed" 
+                        data-toggle="collapse" 
+                        data-target="#navbar" 
+                        aria-expanded="false">
                     </button>
-                    <a href="{% url 'index' %}">Primeiro programa</a><br>
-                
-            </div>
+                    <a class="navbar-brand" href="{% url 'index' %}">Primeiro programa</a><br>
+                </div>
 
-                <div>
-
-                    <ul>
-                        <a href="{% url 'topics' %}">Tópicos</a>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                       <li> <a href="{% url 'topics' %}">Tópicos</a></li>
                     </ul>
-
-                    <ul>
+                    <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
-                            Olá, {{ user.username }}
+                            <li><a>Olá, {{ user.username }}</a></li>
                             <li><a href="{% url 'logout' %}">Sair</a></li>
                         {% else %}
                             <li><a href="{% url 'register' %}">Registrar</a></li>
                             <li><a href="{% url 'login' %}">Entrar</a></li>
                             
                         {% endif %}
-                    </ul>
-
-
-                        {% block content  %}{% endblock content %}
+                    </ul>  
                 <div>
             </div>
         </nav>
     </body>
+</htm>
+ {% block content  %}{% endblock content %}
+

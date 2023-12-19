@@ -3,7 +3,8 @@ from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
-from django.contrib.auth.decorators import login_required # esse módulo dar permissão ao usuário apenas o que foi ele é dono
+# esse módulo dar permissão ao usuário apenas o que foi ele é dono
+from django.contrib.auth.decorators import login_required
 
 
 def index(request,):
@@ -15,10 +16,11 @@ def topics(request):
     context = {'topics': topics}
     return render(request, 'myapp/topics.html', context)
 
+
 @login_required
 def topic(request, topic_id):
     topic = Topic.objects.get(id=topic_id)
-    
+   
     # Garante que o assunto pertence ao usuário atual
     if topic.owner!= request.user:
         raise Http404
@@ -61,13 +63,13 @@ def new_entry(request, topic_id):
             new_entry.save()
             return HttpResponseRedirect(reverse('topic', args=[topic_id]))
         
-  
+
     return render(request, 'myapp/new_entry.html', context={'topic':topic, 'form':form})
 
 @login_required
 def edit_entry(request, entry_id):
-    entry = Entry.objects.get(id=entry_id) # tá buscando na class Entry em models.py o id 
-    topic = entry.topic # topic do model topic que está ligado por uma chave estrangeira
+    entry = Entry.objects.get(id=entry_id)  # tá buscando na class Entry em models.py o id 
+    topic = entry.topic  #topic do model topic que está ligado por uma chave estrangeira
 
     if topic.owner!= request.user:
         raise Http404
@@ -78,8 +80,9 @@ def edit_entry(request, entry_id):
     else:
         form = EntryForm(instance=entry, data=request.POST)
         if form.is_valid():
-            form.save
+            form.save()
             return HttpResponseRedirect(reverse('topic', args=[topic.id]))
-        
+      
     context={'entry': entry, 'topic': topic, 'form': form}
     return render(request, 'myapp/edit_entry.html', context)
+
