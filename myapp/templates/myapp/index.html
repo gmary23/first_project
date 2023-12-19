@@ -1,5 +1,14 @@
 {% extends "myapp/base.html" %}
 
+
+{% block header %}
+    <div class="jumbotron">
+        <h1>Acompanhe seu aprendizado</h1>
+    </div>
+{% endblock header %}
+
 {% block content  %}
-    <p>Teste da minha página para organizar meus conhecimentos</p>
-{% endblock content %}
+<h2>
+   <a href="{% url 'register'%}">Crie uma conta</a> para utilizar o Meu Projeto e liste os tópicos que você está aprendendo.
+</h2>
+   {% endblock content %}
