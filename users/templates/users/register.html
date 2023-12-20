@@ -1,14 +1,23 @@
 {% extends "myapp/base.html" %}
+{% load bootstrap3 %}
+
+{% block header %}
+    <h1>Criar conta</h1>
+{% endblock header %}
 
 {% block content %}
-    {% if form.erros %}
-        <p class="aviso-error" style="color: red">* A senha dever ter mais de 8 dígito, letras, números, caracteres especias e não pode conter o número de usuário</p>
-        <form action="{% url "register" %}" method="post" class="ul-none">
-    {% endif %}
-        {% csrf_token %}
-        {{ form.as_p }}
+    {% if form.errors %}
+        <p class="aviso-error" style="color: red">* A senha dever ter pelo menos 8 dígito, deve conter letras e números, não é permitido caracteres especias e não pode conter o nome de usuário</p>
+        <p class="aviso-error" style="color: red">* É necessário que as senhas sejam iguais.</p>
+    {% endif %}  
+        <form action="{% url "register" %}" method="post" class="ul-none form">
 
-        <button name="submit">Registrar</button>
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        
+        {% buttons %}
+            <button name="submit">Registrar</button>
+        {% endbuttons %}
         <input type="hidden" name="next" value="{% url 'index' %}"/>
     </form>
 {% endblock content  %}
