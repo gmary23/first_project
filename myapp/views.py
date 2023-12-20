@@ -12,7 +12,7 @@ def index(request,):
 
 @login_required
 def topics(request):
-    topics = Topic.objects.filter(owner=request.user).order_by('date_added') # tá pegando todos os objetos que tem como owner o usuário e só depois faz uma ordenação pela data
+    topics = Topic.objects.filter(owner=request.user).order_by('date_added') #  tá pegando todos os objetos que tem como owner o usuário e só depois faz uma ordenação pela data
     context = {'topics': topics}
     return render(request, 'myapp/topics.html', context)
 
@@ -25,7 +25,7 @@ def topic(request, topic_id):
     if topic.owner!= request.user:
         raise Http404
 
-    entries = topic.entry_set.order_by('-id')
+    entries = topic.entry_set.order_by('-date_added')
     context = {'topic': topic, 'entries': entries}
     return render(request, 'myapp/topic.html', context)
 
