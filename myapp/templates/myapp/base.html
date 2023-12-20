@@ -13,6 +13,20 @@
 
         {% bootstrap_css %} 
         {% bootstrap_javascript %} 
+
+        <style>
+            .ul-none ul{
+                display: none;
+            }
+            .helptext{
+                display: none;
+            }
+            .aviso-error{
+                display:none;
+            }
+            
+        </style>
+
     </head>
     <body>
         <nav class="navbar navbar-default navbar-static-top"> <!--menu -o static top mantem o menu no topo-->
@@ -46,7 +60,7 @@
             </div>
         </nav>
         <div class="container">
-            <div>
+            <div class="page-header"> <!--Essa classe tem uma linha inferior-->
                 {% block header %}{% endblock header %}
             </div>
             <div>
@@ -55,5 +69,7 @@
         </div>
     </body>
 </htm>
+
+
 
 

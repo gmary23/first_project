@@ -1,12 +1,17 @@
 {% extends "myapp/base.html" %}
+{% block header %}
+{% load bootstrap3 %}
+    <h2>Adicione um novo tópico: </h2>
+{% endblock header %}
 
 {% block content %}
-    <p>Adicione um novo tópico: </p>
-    <form action="{% url 'new_topic' %}" method='post'>
+    
+    <form action="{% url 'new_topic' %}" method='post' class="form">
         {% csrf_token %} <!--essa tag é obrigatória, pois é uma regra de segurança-->
-        {{form.as_p}} <!--o form é a variável criada e as_p é a formatação do django-->
-        <button type="submit" name="submit">Adicionar</button>
-
+        {% bootstrap_form form%}
+    {% buttons %}
+        <button name="submit" class="btn btn-primary">Adicionar</button>
+    {% endbuttons %}
     </form>
 
 {% endblock content %} 

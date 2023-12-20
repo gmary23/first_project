@@ -1,12 +1,14 @@
 {% extends "myapp/base.html" %}
 
 {% block content %}
-
-    <form action="{% url "register" %}" method="post">
+    {% if form.erros %}
+        <p class="aviso-error" style="color: red">* A senha dever ter mais de 8 dígito, letras, números, caracteres especias e não pode conter o número de usuário</p>
+        <form action="{% url "register" %}" method="post" class="ul-none">
+    {% endif %}
         {% csrf_token %}
         {{ form.as_p }}
 
-        <button name="submit">Registrar/button>
+        <button name="submit">Registrar</button>
         <input type="hidden" name="next" value="{% url 'index' %}"/>
     </form>
 {% endblock content  %}

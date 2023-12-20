@@ -10,6 +10,9 @@ def logout_view(request):
     return HttpResponseRedirect(reverse('index'))
 
 def register(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('index'))
+
     if request.method != 'POST':
         form = UserCreationForm() # exige o formulário de cadastro em branco
     else:
@@ -22,9 +25,4 @@ def register(request):
             return HttpResponseRedirect(reverse('index'))
     context = {'form': form}   
     return render(request, 'users/register.html', context)
-    
-
-
-
-
 

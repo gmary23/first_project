@@ -1,16 +1,25 @@
 {% extends "myapp/base.html" %}
 
+{% block header %}
+    <h1>Tópicos:</h1>
+{% endblock header %}
+
 {% block content %}
 
     <ul>
         {% for topic in topics %}
-            <li>
+        <li>
+        <h3>
             <a href= "{% url 'topic' topic.id %}">{{ topic }}</a>
-            </li>
+        </h3>
+        </li>
         {% empty %}
+        <h3>
             <li>Lista vazia</li>
+        </h3>
         {% endfor %}
     <ul>
-
+    <h3>
    <a href="{% url 'new_topic' %}">Adiciona novos tópicos</a>
+    </h3>
 {% endblock content %}
